@@ -508,6 +508,11 @@
     border-color: var(--accent3);
     color: #05261c;
   }
+  .calendar-day.missed {
+    background: rgba(239,68,68,0.15);
+    border-color: var(--push);
+    color: var(--push);
+  }
   .calendar-day.today { box-shadow: 0 0 0 2px var(--accent); }
   .calendar-day.future { opacity: 0.3; cursor: default; }
   .calendar-day.future:hover { border-color: var(--border); color: var(--muted); }
@@ -528,6 +533,7 @@
     margin-right: 6px;
   }
   .legend-dot.trained { background: var(--accent3); border-color: var(--accent3); }
+  .legend-dot.missed { background: rgba(239,68,68,0.15); border-color: var(--push); }
 
   /* RESPONSIVE */
   @media (max-width: 768px) {
@@ -766,7 +772,7 @@
       <div class="calendar-grid" id="calendar-grid"></div>
       <div class="calendar-legend">
         <span class="legend-dot trained"></span> Treinei
-        <span class="legend-dot" style="margin-left:16px"></span> Não treinei
+        <span class="legend-dot missed" style="margin-left:16px"></span> Não treinei
       </div>
     </div>
   </div>
@@ -1261,6 +1267,7 @@ function renderCalendar() {
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const checks = load('checks', {});
   const today = todayStr();
+  const startStr = START_DATE.toISOString().split('T')[0];
 
   const grid = document.getElementById('calendar-grid');
   grid.innerHTML = '';
@@ -1273,9 +1280,12 @@ function renderCalendar() {
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
     const isFuture = dateStr > today;
     const isToday = dateStr === today;
+    const isBeforeStart = dateStr < startStr;
     const trained = !!(checks[dateStr] && checks[dateStr].trained);
+    const missed = !trained && !isFuture && !isToday && !isBeforeStart;
     const classes = ['calendar-day'];
     if (trained) classes.push('trained');
+    if (missed) classes.push('missed');
     if (isToday) classes.push('today');
     if (isFuture) classes.push('future');
     const onclick = isFuture ? '' : `onclick="toggleCalendarDay('${dateStr}')"`;
