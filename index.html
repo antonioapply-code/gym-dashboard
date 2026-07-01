@@ -673,6 +673,7 @@
     </div>
   </div>
   <button class="btn btn-primary" id="notif-btn" onclick="enableNotifications()" style="display:inline-block">🔔 Ativar Notificações</button>
+  <button class="btn btn-outline" onclick="testNativeNotification()" style="display:inline-block">🧪 Teste Simples (sem OneSignal)</button>
 </header>
 <div id="debug-log" style="background:#12121a;color:#22c55e;font-family:monospace;font-size:12px;padding:12px 16px;white-space:pre-wrap;border-bottom:1px solid #2a2a40"></div>
 
@@ -1553,6 +1554,19 @@ function enableNotifications() {
       alert('Erro: ' + err.message);
     }
   });
+}
+
+async function testNativeNotification() {
+  dlog('--- Teste nativo iniciado ---');
+  try {
+    const result = await Notification.requestPermission();
+    dlog('Resultado nativo (sem OneSignal): ' + result);
+    if (result === 'granted') {
+      new Notification('Teste', { body: 'Se você viu isso, seu iPhone suporta notificações normalmente!' });
+    }
+  } catch (err) {
+    dlog('ERRO no teste nativo: ' + err.message);
+  }
 }
 </script>
 </body>
