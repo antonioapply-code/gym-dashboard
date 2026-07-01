@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Gym Dashboard</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "bff26351-3cc4-493b-8788-d0e65c7a190b",
+    });
+  });
+</script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -656,6 +665,7 @@
       <div class="hstat-label">Semanas</div>
     </div>
   </div>
+  <button class="btn btn-primary" id="notif-btn" onclick="enableNotifications()" style="display:none">🔔 Ativar Notificações</button>
 </header>
 
 <nav>
@@ -1476,9 +1486,28 @@ function init() {
   renderHistory();
   renderCharts();
   renderChecklist();
+  initNotifications();
 }
 
 init();
+
+// ============================================================
+//  NOTIFICATIONS
+// ============================================================
+function initNotifications() {
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    const enabled = await OneSignal.Notifications.permission;
+    document.getElementById('notif-btn').style.display = enabled ? 'none' : 'inline-block';
+  });
+}
+
+function enableNotifications() {
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.Notifications.requestPermission();
+    document.getElementById('notif-btn').style.display = 'none';
+  });
+}
 </script>
 </body>
 </html>
