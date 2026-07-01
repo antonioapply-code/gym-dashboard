@@ -16,6 +16,8 @@
   OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
       appId: "bff26351-3cc4-493b-8788-d0e65c7a190b",
+      serviceWorkerParam: { scope: "/gym-dashboard/" },
+      serviceWorkerPath: "OneSignalSDKWorker.js",
     });
   });
 </script>
