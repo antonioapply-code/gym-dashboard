@@ -670,8 +670,9 @@
       <div class="hstat-label">Semanas</div>
     </div>
   </div>
-  <button class="btn btn-primary" id="notif-btn" onclick="enableNotifications()" style="display:none">🔔 Ativar Notificações</button>
+  <button class="btn btn-primary" id="notif-btn" onclick="enableNotifications()" style="display:inline-block">🔔 Ativar Notificações</button>
 </header>
+<div id="debug-log" style="background:#12121a;color:#22c55e;font-family:monospace;font-size:12px;padding:12px 16px;white-space:pre-wrap;border-bottom:1px solid #2a2a40"></div>
 
 <nav>
   <div class="tab active" onclick="showPage('overview')">Visão Geral</div>
@@ -1499,26 +1500,55 @@ init();
 // ============================================================
 //  NOTIFICATIONS
 // ============================================================
+function dlog(msg) {
+  const el = document.getElementById('debug-log');
+  if (el) el.textContent += msg + '\n';
+}
+
 function initNotifications() {
+  const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
+  dlog('Modo standalone (instalado): ' + isStandalone);
+  dlog('Notification API existe: ' + ('Notification' in window));
+  if ('Notification' in window) {
+    dlog('Permissão nativa atual: ' + Notification.permission);
+  }
+
   window.OneSignalDeferred = window.OneSignalDeferred || [];
+  dlog('Aguardando OneSignal SDK carregar...');
+
+  const timeout = setTimeout(() => {
+    dlog('ERRO: OneSignal SDK não respondeu em 6s. Pode estar bloqueado (bloqueador de anúncio, sem internet, ou CDN indisponível).');
+  }, 6000);
+
   OneSignalDeferred.push(async function(OneSignal) {
-    const enabled = await OneSignal.Notifications.permission;
-    document.getElementById('notif-btn').style.display = enabled ? 'none' : 'inline-block';
+    clearTimeout(timeout);
+    dlog('OneSignal SDK carregou OK.');
+    try {
+      const enabled = await OneSignal.Notifications.permission;
+      dlog('OneSignal permission: ' + enabled);
+      document.getElementById('notif-btn').style.display = enabled ? 'none' : 'inline-block';
+    } catch (err) {
+      dlog('ERRO ao checar permissão: ' + err.message);
+    }
   });
 }
 
 function enableNotifications() {
   const isStandalone = window.navigator.standalone === true || window.matchMedia('(display-mode: standalone)').matches;
   if (!isStandalone) {
+    dlog('BLOQUEADO: precisa abrir pelo ícone da Tela de Início, não pelo Safari direto.');
     alert('Abra o dashboard pelo ícone da Tela de Início (não pelo Safari) antes de ativar as notificações.');
     return;
   }
+  dlog('Botão clicado. Pedindo permissão...');
   OneSignalDeferred.push(async function(OneSignal) {
     try {
-      await OneSignal.Notifications.requestPermission();
+      const result = await OneSignal.Notifications.requestPermission();
+      dlog('Resultado do pedido de permissão: ' + result);
       document.getElementById('notif-btn').style.display = 'none';
     } catch (err) {
-      alert('Erro ao pedir permissão: ' + err.message);
+      dlog('ERRO ao pedir permissão: ' + err.message);
+      alert('Erro: ' + err.message);
     }
   });
 }
