@@ -26,6 +26,7 @@
     --push: #ef4444;
     --pull: #3b82f6;
     --legs: #22c55e;
+    --arms: #f59e0b;
     --rest: #6b7280;
   }
 
@@ -150,15 +151,17 @@
   }
   .day-card:hover { transform: translateY(-2px); }
   .day-card.today { box-shadow: 0 0 0 2px var(--accent); }
-  .day-card.push { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.3); }
-  .day-card.pull { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.3); }
-  .day-card.legs { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.3); }
+  .day-card.a { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.3); }
+  .day-card.b { background: rgba(59,130,246,0.12); border-color: rgba(59,130,246,0.3); }
+  .day-card.c { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.3); }
+  .day-card.d { background: rgba(34,197,94,0.12); border-color: rgba(34,197,94,0.3); }
   .day-card.rest { background: rgba(107,114,128,0.08); }
   .day-name { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
   .day-type { font-size: 13px; font-weight: 700; }
-  .day-card.push .day-type { color: var(--push); }
-  .day-card.pull .day-type { color: var(--pull); }
-  .day-card.legs .day-type { color: var(--legs); }
+  .day-card.a .day-type { color: var(--push); }
+  .day-card.b .day-type { color: var(--pull); }
+  .day-card.c .day-type { color: var(--arms); }
+  .day-card.d .day-type { color: var(--legs); }
   .day-card.rest .day-type { color: var(--rest); }
 
   /* EXERCISES TABLE */
@@ -177,9 +180,20 @@
     text-transform: uppercase;
     letter-spacing: 1px;
   }
-  .badge-push { background: rgba(239,68,68,0.2); color: var(--push); }
-  .badge-pull { background: rgba(59,130,246,0.2); color: var(--pull); }
-  .badge-legs { background: rgba(34,197,94,0.2); color: var(--legs); }
+  .badge-a { background: rgba(239,68,68,0.2); color: var(--push); }
+  .badge-b { background: rgba(59,130,246,0.2); color: var(--pull); }
+  .badge-c { background: rgba(245,158,11,0.2); color: var(--arms); }
+  .badge-d { background: rgba(34,197,94,0.2); color: var(--legs); }
+  .cardio-note {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 24px;
+  }
+  .cardio-note strong { color: var(--text); }
 
   .exercise-table { width: 100%; border-collapse: collapse; }
   .exercise-table th {
@@ -208,9 +222,10 @@
     font-size: 12px;
     font-weight: 700;
   }
-  .push .ex-num { background: rgba(239,68,68,0.15); color: var(--push); }
-  .pull .ex-num { background: rgba(59,130,246,0.15); color: var(--pull); }
-  .legs .ex-num { background: rgba(34,197,94,0.15); color: var(--legs); }
+  .ex-num.ex-a { background: rgba(239,68,68,0.15); color: var(--push); }
+  .ex-num.ex-b { background: rgba(59,130,246,0.15); color: var(--pull); }
+  .ex-num.ex-c { background: rgba(245,158,11,0.15); color: var(--arms); }
+  .ex-num.ex-d { background: rgba(34,197,94,0.15); color: var(--legs); }
   .sets-badge {
     background: var(--surface2);
     padding: 3px 10px;
@@ -219,6 +234,21 @@
     font-weight: 600;
     color: var(--accent2);
     display: inline-block;
+  }
+  .rest-badge {
+    font-size: 12px;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+  .note-tag {
+    display: inline-block;
+    background: rgba(245,158,11,0.15);
+    color: var(--arms);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 6px;
+    margin-top: 4px;
   }
   .video-btn {
     display: inline-block;
@@ -233,6 +263,66 @@
     transition: background 0.2s;
   }
   .video-btn:hover { background: rgba(239,68,68,0.3); }
+
+  /* DIET */
+  .diet-totals-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .diet-total-item { text-align: center; }
+  .diet-total-val { font-size: 22px; font-weight: 700; color: var(--accent2); }
+  .diet-total-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .meal-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+  .meal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 6px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .meal-name { font-size: 16px; font-weight: 700; }
+  .meal-time { font-size: 13px; color: var(--accent2); font-weight: 600; }
+  .meal-macros { font-size: 13px; color: var(--muted); margin-bottom: 14px; }
+  .meal-items { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .meal-items li {
+    font-size: 14px;
+    padding-left: 16px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .meal-items li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .diet-rules { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .diet-rules li {
+    font-size: 14px;
+    padding-left: 18px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .diet-rules li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--accent3);
+    font-weight: 700;
+  }
 
   /* PROGRESS PHOTOS */
   .photos-grid {
@@ -550,7 +640,9 @@
     .form-group input { width: 100%; }
     .today-name { font-size: 22px; }
     .exercise-table th:nth-child(1),
-    .exercise-table td:nth-child(1) { display: none; }
+    .exercise-table td:nth-child(1),
+    .exercise-table th:nth-child(4),
+    .exercise-table td:nth-child(4) { display: none; }
     .chart-wrap { height: 200px; }
     .remove-btn { display: flex !important; }
   }
@@ -591,6 +683,7 @@
 <nav>
   <div class="tab active" onclick="showPage('overview')">Visão Geral</div>
   <div class="tab" onclick="showPage('workout')">Treino</div>
+  <div class="tab" onclick="showPage('diet')">Dieta</div>
   <div class="tab" onclick="showPage('progress')">Progresso</div>
   <div class="tab" onclick="showPage('calendar')">Consistência</div>
   <div class="tab" onclick="showPage('photos')">Fotos</div>
@@ -667,49 +760,30 @@
 
   <!-- ===== WORKOUT ===== -->
   <div class="page" id="page-workout">
-    <div class="section-title">Plano PPL — Push / Pull / Legs</div>
+    <div class="section-title">Treino — Upper/Lower A·B·C·D</div>
 
     <div class="week-grid" id="week-schedule"></div>
 
-    <!-- PUSH -->
-    <div class="workout-block">
-      <div class="workout-block-header">
-        <span class="type-badge badge-push">PUSH</span>
-        <span style="color:var(--muted);font-size:14px">Peito · Ombro · Tríceps</span>
-      </div>
-      <div class="card">
-        <table class="exercise-table push">
-          <thead><tr><th>#</th><th>Exercício</th><th>Séries x Reps</th><th></th></tr></thead>
-          <tbody id="push-table"></tbody>
-        </table>
-      </div>
+    <div class="cardio-note">
+      <strong>Cardio:</strong> caminhada rápida, kitesurf ou snowboard — moderada — 2x/semana · 20–30 min (fora do horário de treino ou após)
     </div>
 
-    <!-- PULL -->
-    <div class="workout-block">
-      <div class="workout-block-header">
-        <span class="type-badge badge-pull">PULL</span>
-        <span style="color:var(--muted);font-size:14px">Costas · Bíceps</span>
-      </div>
-      <div class="card">
-        <table class="exercise-table pull">
-          <thead><tr><th>#</th><th>Exercício</th><th>Séries x Reps</th><th></th></tr></thead>
-          <tbody id="pull-table"></tbody>
-        </table>
-      </div>
-    </div>
+    <div id="workout-blocks"></div>
+  </div>
 
-    <!-- LEGS -->
-    <div class="workout-block">
-      <div class="workout-block-header">
-        <span class="type-badge badge-legs">LEGS</span>
-        <span style="color:var(--muted);font-size:14px">Pernas</span>
+  <!-- ===== DIET ===== -->
+  <div class="page" id="page-diet">
+    <div class="section-title">Dieta</div>
+    <div id="diet-totals" class="diet-totals-card"></div>
+    <div id="diet-meals"></div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Regras Gerais</div>
+        <ul class="diet-rules" id="diet-rules"></ul>
       </div>
       <div class="card">
-        <table class="exercise-table legs">
-          <thead><tr><th>#</th><th>Exercício</th><th>Séries x Reps</th><th></th></tr></thead>
-          <tbody id="legs-table"></tbody>
-        </table>
+        <div class="card-title">Suplementos</div>
+        <ul class="diet-rules" id="diet-supplements"></ul>
       </div>
     </div>
   </div>
@@ -821,54 +895,143 @@
 const START_DATE = new Date('2026-06-20');
 
 const SCHEDULE = [
-  { day: 'Segunda', type: 'push' },
-  { day: 'Terça',   type: 'pull' },
-  { day: 'Quarta',  type: 'legs' },
-  { day: 'Quinta',  type: 'pull' },
-  { day: 'Sexta',   type: 'push' },
+  { day: 'Segunda', type: 'a' },
+  { day: 'Terça',   type: 'b' },
+  { day: 'Quarta',  type: 'c' },
+  { day: 'Quinta',  type: 'd' },
+  { day: 'Sexta',   type: 'a' },
   { day: 'Sábado',  type: 'rest' },
-  { day: 'Domingo', type: 'legs' },
+  { day: 'Domingo', type: 'rest' },
 ];
 
 const WORKOUTS = {
-  push: {
-    label: 'PUSH', color: 'var(--push)',
-    desc: 'Peito · Ombro · Tríceps',
+  a: {
+    label: 'A', color: 'var(--push)',
+    desc: 'Peito + Ombro',
     exercises: [
-      { name: 'Smith Machine Press',              sets: '4x10-12' },
-      { name: 'Shoulder Press (cabo)',             sets: '4x10-12' },
-      { name: 'Dumbbell Fly (peito)',              sets: '3x12-15' },
-      { name: 'Lateral Raise',                    sets: '3x12-15' },
-      { name: 'Triceps Pushdown (corda)',          sets: '3x12-15' },
-      { name: 'Overhead Triceps Extension',        sets: '3x12-15' },
-      { name: 'Leg Raise',                        sets: '3x12-15' },
+      { name: 'Supino Inclinado Smith',              sets: '4x10/12/15/10', rest: '60–90s', note: 'Aquecimento antes' },
+      { name: 'Supino Reto na Smith',                sets: '3x12/10/8',     rest: '60–90s' },
+      { name: 'Crucifixo Inclinado com Halteres',    sets: '3x10-12',       rest: '60–90s' },
+      { name: 'Crossover Polia Alta',                sets: '4x12/10/8/8',   rest: '60–90s', note: 'Drop set na última série (-20%)' },
+      { name: 'Desenvolvimento no Smith',             sets: '3x10-12',       rest: '60–90s' },
+      { name: 'Elevação Unilateral na Polia',        sets: '3x10-12',       rest: '60–90s' },
+      { name: 'Elevação Frontal na Polia com Corda', sets: '4x10-12',       rest: '60–90s', note: 'Rest-pause na última série' },
     ]
   },
-  pull: {
-    label: 'PULL', color: 'var(--pull)',
-    desc: 'Costas · Bíceps',
+  b: {
+    label: 'B', color: 'var(--pull)',
+    desc: 'Costas + Trapézio + Post. Ombro',
     exercises: [
-      { name: 'Lat Pulldown',                     sets: '4x10-12' },
-      { name: 'Seated Cable Row',                  sets: '4x10-12' },
-      { name: 'Bent Over Dumbbell Row',            sets: '3x10-12' },
-      { name: 'Cable Face Pull',                  sets: '3x15-20' },
-      { name: 'Dumbbell Curl',                    sets: '3x10-12' },
-      { name: 'Hammer Curl',                      sets: '3x12-15' },
-      { name: 'Leg Raise',                        sets: '3x15'    },
+      { name: 'Puxada Frente com Barra',                  sets: '4x10/12/15/8', rest: '60–90s', note: 'Aquecimento antes' },
+      { name: 'Puxada com Triângulo',                    sets: '3x10-12',      rest: '60–90s' },
+      { name: 'Remada Baixa (Pegada Pronada)',           sets: '3x10-12',      rest: '60–90s' },
+      { name: 'Remada Baixa com Triângulo',              sets: '4x12/10/8/8',  rest: '60–90s', note: 'Drop set na última série' },
+      { name: 'Remada Alta na Polia Baixa com Corda',    sets: '4x12/10/8/8',  rest: '60–90s', note: 'Drop set na última série' },
+      { name: 'Encolhimento com Halteres',               sets: '3x10-12',      rest: '60–90s' },
+      { name: 'Abdominal Supra no Solo',                  sets: '3x até a falha', rest: '60–90s' },
     ]
   },
-  legs: {
-    label: 'LEGS', color: 'var(--legs)',
-    desc: 'Pernas',
+  c: {
+    label: 'C', color: 'var(--arms)',
+    desc: 'Braços + Antebraço',
     exercises: [
-      { name: 'Agachamento (Smith Machine)',       sets: '4x12'    },
-      { name: 'Leg Extension',                    sets: '4x12-15' },
-      { name: 'Leg Curl',                         sets: '4x12-15' },
-      { name: 'Hip Abduction / Adduction',        sets: '3x15'    },
-      { name: 'Calf Raise',                       sets: '3x20'    },
-      { name: 'Leg Raise',                        sets: '3x15'    },
+      { name: 'Testa Tríceps na Polia com Corda',    sets: '4x10/12/15/8', rest: '60–90s', note: 'Aquecimento antes' },
+      { name: 'Tríceps Francês Unilateral na Polia', sets: '3x10-12',      rest: '60–90s' },
+      { name: 'Pulley Tríceps com Barra Reta',       sets: '4x12/10/8/8',  rest: '60–90s', note: 'Drop set na última série' },
+      { name: 'Rosca Martelo no Cross',               sets: '3x10-12',      rest: '60–90s' },
+      { name: 'Rosca Unilateral na Polia Baixa',      sets: '3x8-10',       rest: '60–90s' },
+      { name: 'Rosca Direta na Polia (Barra Reta)',   sets: '4x12/10/8/8',  rest: '60–90s', note: 'Drop set na última série' },
+      { name: 'Rosca Inversa na Polia Baixa',         sets: '2x10-12',      rest: '60–90s' },
+    ]
+  },
+  d: {
+    label: 'D', color: 'var(--legs)',
+    desc: 'Pernas + Panturrilha',
+    exercises: [
+      { name: 'Agachamento no Smith',                        sets: '4x10/12/15/8', rest: '60–90s', note: 'Aquecimento antes' },
+      { name: 'Leg Press Horizontal',                        sets: '3x12/10/8',    rest: '60–90s' },
+      { name: 'Cadeira Extensora',                           sets: '4x12/10/8/8',  rest: '60–90s', note: 'Drop set na última série' },
+      { name: 'Cadeira Adutora',                             sets: '3x12-15',      rest: '60–90s' },
+      { name: 'Cadeira Flexora',                             sets: '4x12/10/8/8',  rest: '60–90s', note: 'Drop set na última série' },
+      { name: 'Panturrilha no Leg Press Horizontal',         sets: '4x12/10/8/8',  rest: '60–90s', note: 'Bi-set (sem descanso nas 2 primeiras séries)' },
+      { name: 'Abdominal Infra Pernas Flexionadas',          sets: '3x até a falha', rest: '60–90s' },
     ]
   }
+};
+
+const WORKOUT_ORDER = ['a', 'b', 'c', 'd'];
+
+const DIET = {
+  totals: { kcal: 2519, protein: 201, carbs: 309.9, fat: 51.7, proteinPct: 36, carbPct: 55, fatPct: 9 },
+  meals: [
+    {
+      name: 'Refeição 1 (Pós Treino)', time: '09:30–10:00',
+      kcal: 492, protein: 28.8, carbs: 35.2, fat: 25.9,
+      items: [
+        'Pão Francês — 60g (pode trocar por 75g pão de forma, 60g goma de tapioca ou 150g cuscuz de milho)',
+        'Ovo inteiro — 4 unidades (200g)',
+        'Cada ovo pode virar: 25g queijo minas/mussarela/requeijão, 40g requeijão light/creme de ricota, ou 45g frango desfiado/peito de peru/presunto/atum',
+      ]
+    },
+    {
+      name: 'Refeição 2', time: '12:30–13:00',
+      kcal: 695, protein: 61.6, carbs: 92.8, fat: 8.6,
+      items: [
+        'Arroz branco/integral cozido — 250g',
+        'Feijão cozido — 150g',
+        'Peito de frango cozido/assado/grelhado — 150g',
+        'Legumes crus ou cozidos — 100g',
+        'Salada de folhas, tomate e cebola (sem azeite) — à vontade',
+      ]
+    },
+    {
+      name: 'Refeição 3', time: '16:00–16:30',
+      kcal: 406, protein: 16.6, carbs: 67.8, fat: 7.2,
+      items: [
+        'Iogurte desnatado/zero/light — 250ml',
+        'Aveia — 40g',
+        'Banana — 2 unid. (140g)',
+        'Opção alternativa (401 kcal): pão de forma 75g + frango desfiado 50g + requeijão 50g + salada',
+      ]
+    },
+    {
+      name: 'Refeição 4', time: '19:30–20:00',
+      kcal: 633, protein: 60.3, carbs: 79.9, fat: 8,
+      items: [
+        'Arroz branco/integral cozido — 200g',
+        'Feijão cozido — 150g',
+        'Peito de frango cozido/assado/grelhado — 150g',
+        'Legumes — 100g',
+        'Salada de folhas, tomate e cebola — à vontade',
+        'Opção alternativa (635 kcal): hambúrguer caseiro — pão 60g + hambúrguer de patinho/frango 180g cru + queijo 50g + requeijão 30g',
+      ]
+    },
+    {
+      name: 'Refeição 5 (Shake/Vitamina)', time: '22:30–23:00',
+      kcal: 293, protein: 33.7, carbs: 34.2, fat: 2,
+      items: [
+        'Leite desnatado — 350ml',
+        'Banana — 1 unid. (70g)',
+        'Whey protein concentrado — 25g',
+        'Obs: quando voltar pro exterior, avaliamos manter ou remover essa refeição',
+        'Opção alternativa (288 kcal): bebida láctea 15g proteína (YoPro) + banana + melão',
+      ]
+    },
+  ],
+  rules: [
+    'Pode mudar horários e ordem das refeições',
+    'Pode usar as substituições livremente',
+    'Não beliscar / não incluir nada fora da dieta',
+    'Sem azeite/óleo no preparo (só um fio pra untar frigideira)',
+    'Pesar alimentos prontos',
+    '1 refeição livre por semana (facultativa, comer até 80% cheio, evitar nos primeiros 15 dias)',
+    'Dormir 6h+ por noite',
+    'Água: mín. 40ml/kg/dia',
+  ],
+  supplements: [
+    'Multivitamínico + 5g creatina (na 1ª refeição)',
+    '400mg cafeína ou pré-treino 30min antes do treino',
+  ]
 };
 
 // ============================================================
@@ -917,7 +1080,7 @@ function getDayOfWeek() {
   return new Date().getDay();
 }
 function getTodayWorkout() {
-  const map = { 1:'push', 2:'pull', 3:'legs', 4:'pull', 5:'push', 6:'rest', 0:'legs' };
+  const map = { 1:'a', 2:'b', 3:'c', 4:'d', 5:'a', 6:'rest', 0:'rest' };
   return map[getDayOfWeek()];
 }
 
@@ -949,7 +1112,7 @@ function renderOverview() {
 
   const todayType = getTodayWorkout();
   const todayBlock = document.getElementById('today-block');
-  const colorMap = { push: 'var(--push)', pull: 'var(--pull)', legs: 'var(--legs)', rest: 'var(--rest)' };
+  const colorMap = { a: 'var(--push)', b: 'var(--pull)', c: 'var(--arms)', d: 'var(--legs)', rest: 'var(--rest)' };
   todayBlock.style.borderLeftColor = colorMap[todayType];
   if (todayType === 'rest') {
     todayBlock.innerHTML = `
@@ -960,7 +1123,7 @@ function renderOverview() {
     const w = WORKOUTS[todayType];
     todayBlock.innerHTML = `
       <div class="today-label">Treino de Hoje</div>
-      <div class="today-name" style="color:${colorMap[todayType]}">${w.label} — ${w.desc}</div>
+      <div class="today-name" style="color:${colorMap[todayType]}">Treino ${w.label} — ${w.desc}</div>
       <div class="today-desc">${w.exercises.length} exercícios · Clique em <strong>Treino</strong> para ver o plano completo.</div>`;
   }
 
@@ -1008,19 +1171,62 @@ function videoSearchUrl(name) {
 }
 
 function renderTables() {
-  ['push','pull','legs'].forEach(type => {
-    const tbody = document.getElementById(type + '-table');
-    tbody.innerHTML = '';
-    WORKOUTS[type].exercises.forEach((ex, i) => {
-      tbody.innerHTML += `
-        <tr>
-          <td><div class="ex-num">${i+1}</div></td>
-          <td>${ex.name}</td>
-          <td><span class="sets-badge">${ex.sets}</span></td>
-          <td><a class="video-btn" href="${videoSearchUrl(ex.name)}" target="_blank" rel="noopener">▶ Vídeo</a></td>
-        </tr>`;
-    });
+  const container = document.getElementById('workout-blocks');
+  container.innerHTML = '';
+  WORKOUT_ORDER.forEach(type => {
+    const w = WORKOUTS[type];
+    const rows = w.exercises.map((ex, i) => `
+      <tr>
+        <td><div class="ex-num ex-${type}">${i+1}</div></td>
+        <td>
+          ${ex.name}
+          ${ex.note ? `<div class="note-tag">${ex.note}</div>` : ''}
+        </td>
+        <td><span class="sets-badge">${ex.sets}</span></td>
+        <td class="rest-badge">${ex.rest}</td>
+        <td><a class="video-btn" href="${videoSearchUrl(ex.name)}" target="_blank" rel="noopener">▶ Vídeo</a></td>
+      </tr>`).join('');
+
+    container.innerHTML += `
+      <div class="workout-block">
+        <div class="workout-block-header">
+          <span class="type-badge badge-${type}">${w.label}</span>
+          <span style="color:var(--muted);font-size:14px">${w.desc}</span>
+        </div>
+        <div class="card">
+          <table class="exercise-table">
+            <thead><tr><th>#</th><th>Exercício</th><th>Séries x Reps</th><th>Descanso</th><th></th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>`;
   });
+}
+
+// ============================================================
+//  DIET
+// ============================================================
+function renderDiet() {
+  const t = DIET.totals;
+  document.getElementById('diet-totals').innerHTML = `
+    <div class="diet-total-item"><div class="diet-total-val">${t.kcal}</div><div class="diet-total-label">kcal/dia</div></div>
+    <div class="diet-total-item"><div class="diet-total-val">${t.protein}g</div><div class="diet-total-label">Proteína (${t.proteinPct}%)</div></div>
+    <div class="diet-total-item"><div class="diet-total-val">${t.carbs}g</div><div class="diet-total-label">Carbo (${t.carbPct}%)</div></div>
+    <div class="diet-total-item"><div class="diet-total-val">${t.fat}g</div><div class="diet-total-label">Gordura (${t.fatPct}%)</div></div>`;
+
+  const mealsEl = document.getElementById('diet-meals');
+  mealsEl.innerHTML = DIET.meals.map(m => `
+    <div class="meal-card">
+      <div class="meal-header">
+        <div class="meal-name">${m.name}</div>
+        <div class="meal-time">${m.time}</div>
+      </div>
+      <div class="meal-macros">${m.kcal} kcal · ${m.protein}g P · ${m.carbs}g C · ${m.fat}g G</div>
+      <ul class="meal-items">${m.items.map(item => `<li>${item}</li>`).join('')}</ul>
+    </div>`).join('');
+
+  document.getElementById('diet-rules').innerHTML = DIET.rules.map(r => `<li>${r}</li>`).join('');
+  document.getElementById('diet-supplements').innerHTML = DIET.supplements.map(s => `<li>${s}</li>`).join('');
 }
 
 
@@ -1315,6 +1521,7 @@ function init() {
   renderOverview();
   renderSchedule();
   renderTables();
+  renderDiet();
   renderPhotos();
   renderHistory();
   renderCharts();
